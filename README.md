@@ -1,8 +1,9 @@
 # FindThePath
-Game Design
+
+#Game Design
 
 
-Objective
+#Objective
 
 Created based on puzzle game theory. Player finds the path to problems and then chooses types of questions, solves it and gains the access to next level. Levels are “randomly” unlocked based on the performance of previous level.
 
