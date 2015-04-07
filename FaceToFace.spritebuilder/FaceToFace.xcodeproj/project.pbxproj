@@ -12,6 +12,7 @@
 		5B12102A197484DD004C1E1D /* FaceToFaceActivity.java in Sources */ = {isa = PBXBuildFile; fileRef = 5B12101B19748413004C1E1D /* FaceToFaceActivity.java */; };
 		5B121030197484FA004C1E1D /* FaceToFaceActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B12102F197484FA004C1E1D /* FaceToFaceActivity.m */; };
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
+		73697A771ACE16A0006A9D56 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 73697A761ACE16A0006A9D56 /* GameScene.m */; };
 		73F830E61AC8EA6000273F8F /* LevelChosen.m in Sources */ = {isa = PBXBuildFile; fileRef = 73F830E51AC8EA6000273F8F /* LevelChosen.m */; };
 		7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
 		7A40360419DDEE84007B6E8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A40360319DDEE84007B6E8F /* main.m */; };
@@ -182,6 +183,8 @@
 		5B121033197485FE004C1E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Platforms/Android/Info.plist; sourceTree = "<group>"; };
 		5B121034197485FE004C1E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Platforms/iOS/Info.plist; sourceTree = "<group>"; };
 		5BA4619E1974C88900785744 /* AndroidManifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AndroidManifest.xml; path = Platforms/Android/AndroidManifest.xml; sourceTree = "<group>"; };
+		73697A751ACE16A0006A9D56 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		73697A761ACE16A0006A9D56 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		73F830E41AC8EA5F00273F8F /* LevelChosen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelChosen.h; sourceTree = "<group>"; };
 		73F830E51AC8EA6000273F8F /* LevelChosen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelChosen.m; sourceTree = "<group>"; };
 		7A4035FF19DDEE84007B6E8F /* FaceToFace Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FaceToFace Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,6 +468,8 @@
 				B7378993180767190076A88C /* MainScene.m */,
 				73F830E41AC8EA5F00273F8F /* LevelChosen.h */,
 				73F830E51AC8EA6000273F8F /* LevelChosen.m */,
+				73697A751ACE16A0006A9D56 /* GameScene.h */,
+				73697A761ACE16A0006A9D56 /* GameScene.m */,
 				D352B48019EC608A00829775 /* MetalShaders */,
 			);
 			name = Source;
@@ -868,6 +873,7 @@
 			files = (
 				73F830E61AC8EA6000273F8F /* LevelChosen.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				73697A771ACE16A0006A9D56 /* GameScene.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 			);

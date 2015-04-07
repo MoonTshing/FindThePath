@@ -104,6 +104,14 @@
 					</dict>
 					<dict>
 						<key>name</key>
+						<string>rotation</string>
+						<key>type</key>
+						<string>Degrees</string>
+						<key>value</key>
+						<real>90</real>
+					</dict>
+					<dict>
+						<key>name</key>
 						<string>spriteFrame</string>
 						<key>type</key>
 						<string>SpriteFrame</string>
@@ -179,8 +187,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>98.999984741210938</real>
-							<real>143.99998474121094</real>
+							<real>74.999984741210938</real>
+							<real>321</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -217,7 +225,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string></string>
+							<string>levelOnePressed</string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -505,8 +513,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>242.99996948242188</real>
-							<real>144.99998474121094</real>
+							<real>222.99996948242188</real>
+							<real>320</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -831,8 +839,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>70.999969482421875</real>
-							<real>275</real>
+							<real>40.999969482421875</real>
+							<real>549</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1209,13 +1217,13 @@
 			<key>ext</key>
 			<string>phone</string>
 			<key>height</key>
-			<integer>320</integer>
+			<integer>568</integer>
 			<key>name</key>
-			<string>Phone Landscape</string>
+			<string>Phone Portrait</string>
 			<key>scale</key>
 			<real>1</real>
 			<key>width</key>
-			<integer>568</integer>
+			<integer>320</integer>
 		</dict>
 		<dict>
 			<key>centeredOrigin</key>
@@ -1223,13 +1231,13 @@
 			<key>ext</key>
 			<string>tablet phonehd</string>
 			<key>height</key>
-			<integer>384</integer>
+			<integer>512</integer>
 			<key>name</key>
-			<string>Tablet Landscape</string>
+			<string>Tablet Portrait</string>
 			<key>scale</key>
 			<real>2</real>
 			<key>width</key>
-			<integer>512</integer>
+			<integer>384</integer>
 		</dict>
 		<dict>
 			<key>centeredOrigin</key>
@@ -1237,13 +1245,13 @@
 			<key>ext</key>
 			<string>phone</string>
 			<key>height</key>
-			<integer>320</integer>
+			<integer>480</integer>
 			<key>name</key>
-			<string>Phone Landscape (short)</string>
+			<string>iPhone Portrait (short)</string>
 			<key>scale</key>
 			<real>1</real>
 			<key>width</key>
-			<integer>480</integer>
+			<integer>320</integer>
 		</dict>
 	</array>
 	<key>sequences</key>
