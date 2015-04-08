@@ -367,8 +367,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>seqExpanded</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -485,8 +483,6 @@
 						<array/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -520,8 +516,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>257.15606689453125</real>
-							<real>139.8670654296875</real>
+							<real>163.15606689453125</real>
+							<real>296.8670654296875</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -821,6 +817,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

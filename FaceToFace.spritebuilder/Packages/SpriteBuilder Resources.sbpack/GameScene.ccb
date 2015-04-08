@@ -293,11 +293,11 @@
 								<key>children</key>
 								<array/>
 								<key>customClass</key>
-								<string>_currentScore</string>
+								<string></string>
 								<key>displayName</key>
 								<string>CCLabelTTF</string>
 								<key>memberVarAssignmentName</key>
-								<string></string>
+								<string>_currentScore</string>
 								<key>memberVarAssignmentType</key>
 								<integer>1</integer>
 								<key>properties</key>
@@ -621,11 +621,11 @@
 								<key>children</key>
 								<array/>
 								<key>customClass</key>
-								<string>_highestScore</string>
+								<string></string>
 								<key>displayName</key>
 								<string>CCLabelTTF</string>
 								<key>memberVarAssignmentName</key>
-								<string></string>
+								<string>_highestScore</string>
 								<key>memberVarAssignmentType</key>
 								<integer>1</integer>
 								<key>properties</key>
@@ -819,8 +819,6 @@
 										</array>
 									</dict>
 								</array>
-								<key>selected</key>
-								<true/>
 							</dict>
 							<dict>
 								<key>UUID</key>
@@ -892,7 +890,7 @@
 										<string>Block</string>
 										<key>value</key>
 										<array>
-											<string>pause</string>
+											<string>pauseButtonPressed</string>
 											<integer>1</integer>
 										</array>
 									</dict>
@@ -1424,7 +1422,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string></string>
+		<string>GameScene</string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>

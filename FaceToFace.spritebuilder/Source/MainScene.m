@@ -2,7 +2,12 @@
 #import "Grid.h"
 
 
-@implementation MainScene
+@implementation MainScene{
+    Grid *_grid;
+    CCLabelTTF *_currentScore;
+    CCLabelTTF *_highestScore;
+}
+
 
 -(void) play{
     CCLOG(@"play button pressed");
