@@ -7,7 +7,29 @@
 //
 
 #import "GameScene.h"
+#import "Grid.h"
 
-@implementation GameScene
+@implementation GameScene{
+    Grid *_grid;
+    CCLabelTTF *_currentScore;
+    CCLabelTTF *_highestScore;
+}
+
+-(id) init{
+    self = [super init];
+    
+    if(self)
+    {
+        _currentScore = 0;
+        // get the higest score from the userdefault data
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if(defaults != nil){
+             _highestScore = [defaults integerForKey:@/* Need a key */];
+        }else{
+            _highestScore = 0;
+        }
+    }
+}
+
 
 @end

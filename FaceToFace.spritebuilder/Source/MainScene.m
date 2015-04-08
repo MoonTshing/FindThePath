@@ -1,6 +1,9 @@
 #import "MainScene.h"
+#import "Grid.h"
+
 
 @implementation MainScene
+
 -(void) play{
     CCLOG(@"play button pressed");
     
