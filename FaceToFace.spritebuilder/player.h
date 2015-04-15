@@ -8,6 +8,6 @@
 
 #import "CCSprite.h"
 
-@interface player : CCSprite
-
+@interface player : UIViewController{ CCSprite *player;}
+-(id) initPlayer;
 @end

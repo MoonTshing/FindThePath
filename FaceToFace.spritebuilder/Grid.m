@@ -7,9 +7,11 @@
 //
 
 #import "Grid.h"
+#import "DEMazeGenerator.h"
+#import "Block.h"
 
-static const int GRID_ROWS = 16;
-static const int GRID_COLUMNS = 10;
+static const int GRID_ROWS = 8;
+static const int GRID_COLUMNS = 5;
 
 @implementation Grid {
     NSMutableArray *_gridArray;
@@ -27,30 +29,46 @@ static const int GRID_COLUMNS = 10;
 
 - (void) setupGrid
 {
-    _cellWidth = self.contentSize.width/GRID_COLUMNS;
-    _cellHeight = self.contentSize.height/GRID_ROWS;
-   
-    float x = 0;
-    float y = 0;
-    NSLog(@"setup grid");
+
+    _cellWidth = self.contentSize.width/(GRID_COLUMNS*2);
+    _cellHeight = self.contentSize.height/(GRID_ROWS*2);
+     NSLog(@"setup grid");
     _gridArray = [NSMutableArray array];
     
-    for(int i = 0; i < GRID_ROWS; i++)
-    {
-        _gridArray[i] = [NSMutableArray array];
-        x = 0;
+    
+    DEMazeGenerator *maze = [[DEMazeGenerator alloc] initWithRow:GRID_ROWS andCol:GRID_COLUMNS withStartingPoint:DEIntegerPointMake(1, 1)];
+    
+    [maze arrayMaze:^(bool **item) {
         
-        for( int j = 0; j < GRID_COLUMNS; j++)
+        float x = 0;
+        float y = 0;
+        NSMutableString *rowString = [NSMutableString string];
+        
+        for (int r = 0; r < GRID_ROWS*2+1; r++)
         {
+            [rowString setString:[NSString stringWithFormat:@"%d: ", r]];
+            x = 0;
             
-            
-            
-            x += _cellWidth;
+            for (int c = 0; c < GRID_COLUMNS*2+1; c++)
+            {
+                Block *block = [[Block alloc] initBlock];
+                block.anchorPoint= ccp(0,0);
+                block.position = ccp(x,y);
+                if(item[r][c] == 1)
+                {
+                     [self addChild:block];
+                }
+               
+                
+                [rowString appendFormat:@"%@ ", item[r][c] == 1 ? @"*" : @" "];
+                x += _cellWidth;
+            }
+            y += _cellHeight;
+            NSLog(@"%@", rowString);
         }
         
-        y +=_cellHeight;
-    }
-    NSLog(@"setup grid finished");
+    }];
+       NSLog(@"setup grid finished");
 }
 
 @end

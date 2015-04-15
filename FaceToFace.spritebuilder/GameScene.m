@@ -8,6 +8,7 @@
 
 #import "GameScene.h"
 #import "Grid.h"
+#import <UIKit/UIKit.h>
 
 @implementation GameScene
 /*-(id) init{
@@ -37,5 +38,14 @@
     [[CCDirector sharedDirector] presentScene:scene withTransition:transition];
 }
 
+-(void) moveTheNode
+{
+    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(screenWasSwipedUp)];
+    
+    swipeUp.numberOfTouchesRequired = 1;
+    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer: swipeUp]
+
+}
 
 @end

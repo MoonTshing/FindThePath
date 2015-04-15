@@ -7,7 +7,9 @@
 //
 
 #import "level1.h"
+#import "Grid.h"
 
 @implementation level1
+
 
 @end
