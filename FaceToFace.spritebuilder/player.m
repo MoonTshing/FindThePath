@@ -10,10 +10,9 @@
 #import "Block.h"
 
 @implementation player
-
 -(instancetype) initPlayer{
-    self = [super :@"player.png"];
-    [self resizeSprite: self toWidth:24 toHeight:24];
+    self = [super initWithImageNamed:@"player.png"];
+    [self resizeSprite: self toWidth:12 toHeight:12];
     return self;
 }
 
@@ -22,8 +21,5 @@
     sprite.scaleY = height / sprite.contentSize.height;
 }
 
--(void)screenWasSwipedUp
-{
-    
-}
+
 @end

@@ -104,14 +104,6 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>rotation</string>
-						<key>type</key>
-						<string>Degrees</string>
-						<key>value</key>
-						<real>90</real>
-					</dict>
-					<dict>
-						<key>name</key>
 						<string>spriteFrame</string>
 						<key>type</key>
 						<string>SpriteFrame</string>
@@ -187,8 +179,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>74.999984741210938</real>
-							<real>321</real>
+							<real>91.77581787109375</real>
+							<real>317.00576782226562</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -411,10 +403,10 @@
 						<string>Color4</string>
 						<key>value</key>
 						<array>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
+							<real>0.090196080505847931</real>
+							<real>0.47058823704719543</real>
+							<real>0.69019609689712524</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -513,8 +505,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>222.99996948242188</real>
-							<real>320</real>
+							<real>225.39651489257812</real>
+							<real>317.60342407226562</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -737,10 +729,10 @@
 						<string>Color4</string>
 						<key>value</key>
 						<array>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
+							<real>0.16470588743686676</real>
+							<real>0.52941179275512695</real>
+							<real>0.72156864404678345</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -806,6 +798,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -817,7 +811,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>CCButton</string>
+				<string>exit</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -839,8 +833,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>37.999969482421875</real>
-							<real>496</real>
+							<real>50.829948425292969</real>
+							<real>521.6632080078125</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -864,11 +858,19 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1.2357137203216553</real>
-							<real>0.52471506595611572</real>
+							<real>0.5</real>
+							<real>0.5</real>
 							<false/>
 							<integer>0</integer>
 						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>rotation</string>
+						<key>type</key>
+						<string>Degrees</string>
+						<key>value</key>
+						<real>1.0236678123474121</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -888,8 +890,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>62</real>
-							<real>62</real>
+							<real>73</real>
+							<real>74</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -1132,8 +1134,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

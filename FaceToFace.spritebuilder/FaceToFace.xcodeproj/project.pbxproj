@@ -12,6 +12,7 @@
 		5B12102A197484DD004C1E1D /* FaceToFaceActivity.java in Sources */ = {isa = PBXBuildFile; fileRef = 5B12101B19748413004C1E1D /* FaceToFaceActivity.java */; };
 		5B121030197484FA004C1E1D /* FaceToFaceActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B12102F197484FA004C1E1D /* FaceToFaceActivity.m */; };
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
+		734A9F0E1AE0630300435452 /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 734A9F0D1AE0630300435452 /* block.png */; };
 		73697A771ACE16A0006A9D56 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 73697A761ACE16A0006A9D56 /* GameScene.m */; };
 		73697A7B1AD3589B006A9D56 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 73697A7A1AD3589B006A9D56 /* Grid.m */; };
 		736C56B71AD4C7BD002BC576 /* Pause.m in Sources */ = {isa = PBXBuildFile; fileRef = 736C56B61AD4C7BD002BC576 /* Pause.m */; };
@@ -191,6 +192,7 @@
 		5B121033197485FE004C1E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Platforms/Android/Info.plist; sourceTree = "<group>"; };
 		5B121034197485FE004C1E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Platforms/iOS/Info.plist; sourceTree = "<group>"; };
 		5BA4619E1974C88900785744 /* AndroidManifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AndroidManifest.xml; path = Platforms/Android/AndroidManifest.xml; sourceTree = "<group>"; };
+		734A9F0D1AE0630300435452 /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block.png; path = "../object_emoji-tiles/block.png"; sourceTree = "<group>"; };
 		73697A751ACE16A0006A9D56 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		73697A761ACE16A0006A9D56 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		73697A791AD3589B006A9D56 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				73697A7A1AD3589B006A9D56 /* Grid.m */,
 				736C56BC1AD4CB2B002BC576 /* player.h */,
 				736C56BD1AD4CB2B002BC576 /* player.m */,
+				734A9F0D1AE0630300435452 /* block.png */,
 				736C56B91AD4CAEE002BC576 /* level1.h */,
 				736C56BA1AD4CAEE002BC576 /* level1.m */,
 				73CB6F531ADDDE7C00F40AC8 /* player.png */,
@@ -823,6 +826,7 @@
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
 				73CB6F541ADDDE7C00F40AC8 /* player.png in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
+				734A9F0E1AE0630300435452 /* block.png in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,

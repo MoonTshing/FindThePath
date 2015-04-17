@@ -11,8 +11,8 @@
 @implementation Block
 
 -(instancetype) initBlock{
-    self = [super initWithImageNamed:@"blue.png"];
-    [self resizeSprite: self toWidth:24 toHeight:24];
+    self = [super initWithImageNamed:@"block.png"];
+    [self resizeSprite: self toWidth:12 toHeight:12];
     return self;
 }
 -(void)resizeSprite:(CCSprite*)sprite toWidth:(float)width toHeight:(float)height {
