@@ -10,6 +10,6 @@
 
 @interface Block : CCSprite
 
--(id) initBlock;
+-(id) initBlock:(int) width;
 -(void)resizeSprite:(CCSprite*)sprite toWidth:(float)width toHeight:(float)height;
 @end

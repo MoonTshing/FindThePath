@@ -10,4 +10,5 @@
 
 @interface Pause : CCNode
 
+
 @end

@@ -43,7 +43,7 @@
 	<key>publishEnablediPhone</key>
 	<true/>
 	<key>publishEnvironment</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>publishResolution_android_phone</key>
 	<true/>
 	<key>publishResolution_android_phonehd</key>
@@ -79,6 +79,13 @@
 			<true/>
 		</dict>
 		<key>Resources</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
+		<key>Resources2</key>
 		<dict>
 			<key>isDirty</key>
 			<true/>

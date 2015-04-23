@@ -10,7 +10,11 @@
 #import "Grid.h"
 #import <UIKit/UIKit.h>
 #import "player.h"
-@implementation GameScene
+#import "Pause.h"
+@implementation GameScene{
+    Pause *_pause;
+}
+
 /*-(id) init{
  self = [super init];
  
@@ -31,16 +35,18 @@
 
 - (void)onEnter {
     [super onEnter];
-    
+    _pause.zOrder = -1;
+    _pause.visible = NO;
 }
 
 -(void) pauseButtonPressed
 {
-    CCLOG(@"play button pressed");
-    
-    CCScene* scene = [CCBReader loadAsScene:@"Pause"];
+    CCLOG(@"pause button pressed");
+    _pause.visible = YES;
+    _pause.zOrder = 1;
+   /* CCScene* scene = [CCBReader loadAsScene:@"Pause"];
     CCTransition* transition = [CCTransition transitionFadeWithDuration:0.5];
-    [[CCDirector sharedDirector] presentScene:scene withTransition:transition];
+    [[CCDirector sharedDirector] presentScene:scene withTransition:transition];*/
 }
 
 

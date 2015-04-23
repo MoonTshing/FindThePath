@@ -9,6 +9,6 @@
 #import "CCSprite.h"
 
 @interface player : CCSprite
--(id) initPlayer;
+-(id) initPlayer:(int)width;
 
 @end

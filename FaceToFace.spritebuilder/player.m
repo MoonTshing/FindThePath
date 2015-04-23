@@ -10,9 +10,9 @@
 #import "Block.h"
 
 @implementation player
--(instancetype) initPlayer{
-    self = [super initWithImageNamed:@"player.png"];
-    [self resizeSprite: self toWidth:12 toHeight:12];
+-(instancetype) initPlayer:(int) width{
+    self = [super initWithImageNamed:@"Assets/player.png"];
+    [self resizeSprite: self toWidth:width toHeight:width];
     return self;
 }
 
