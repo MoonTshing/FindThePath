@@ -133,10 +133,8 @@ static const int BLOCK_LENGTH = 24;
         }
         
     }
-    
-    
-    
 }
+
 -(void) genMonster {
     int x = 0;
     int y = 0;
@@ -144,10 +142,9 @@ static const int BLOCK_LENGTH = 24;
         x = [ self genRandIndex:1 To: (int)[[mazeArray objectAtIndex:1] count]];
         y = [self genRandIndex:10 To: (int)([mazeArray count]-1)];
         
-    }while(![mazeArray[y][x] isEqualToString:@"e"]);
+    } while(![mazeArray[y][x] isEqualToString:@"e"]);
     printf("x= %d; y: %d\n", x, y);
     mazeArray[y][x] = @"m";
-    
 }
 
 -(void) startMyTimer: (CCSprite *) monster {
@@ -170,6 +167,10 @@ static const int BLOCK_LENGTH = 24;
     return (int) monster.position.x/BLOCK_LENGTH;
 }
 
+- (CGPoint) getPositionForRow: (int)row andColumn:(int)column {
+    return ccp(column * BLOCK_LENGTH, row * BLOCK_LENGTH);
+}
+
 - (void) updateNextDirection: (CCNode *)monster {
     int row = [self currentPositionToRow:monster];
     int column = [self currentPositionToColumn:monster];
@@ -186,26 +187,26 @@ static const int BLOCK_LENGTH = 24;
         case North:
             // move up
             if ([mazeArray[row+1][column] isEqualToString:@"e"]) {
-                monster.position = ccp(monster.position.x, monster.position.y+BLOCK_LENGTH);
+                monster.position = [self getPositionForRow:row+1 andColumn:column];
             }
             break;
         case South:
             // move down
             if ([mazeArray[row-1][column] isEqualToString:@"e"]) {
-                monster.position = ccp(monster.position.x, monster.position.y-BLOCK_LENGTH);
+                monster.position = [self getPositionForRow:row-1 andColumn:column];
             }
             break;
         case West:
             //move left
             if ([mazeArray[row][column-1] isEqualToString:@"e"]) {
-                monster.position = ccp(monster.position.x-BLOCK_LENGTH, monster.position.y);
+                monster.position = [self getPositionForRow:row andColumn:column-1];
                 
             }
             break;
         case East:
             //  move right
             if ([mazeArray[row][column+1] isEqualToString:@"e"]) {
-                monster.position = ccp(monster.position.x+BLOCK_LENGTH, monster.position.y);
+                monster.position = [self getPositionForRow:row andColumn:column+1];
             }
             break;
         default:
@@ -329,19 +330,23 @@ static const int BLOCK_LENGTH = 24;
 }
 
 
--(void) moveToTransporter: (CCSprite *) node{
+-(void) moveToTransporter: (CCSprite *) node {
     NSLog(@"%f,%f",node.position.x,node.position.y);
-    int row = (int)(node.position.y/BLOCK_LENGTH);
-    int col = (int)(node.position.x/BLOCK_LENGTH);
+    int row = [self currentPositionToRow:node];
+    int col = [self currentPositionToColumn:node];
+    
     if ([mazeArray[row][col] isEqualToString:@"door"]) {
-        
-        for(int r = 0; r < [mazeArray count]; r ++)
-        {
+        for(int r = 0; r < [mazeArray count]; r ++) {
             for (int c = 0; c < [[mazeArray objectAtIndex: r] count]; c++) {
                 if ((r != row || c != col) && [mazeArray[r][c] isEqualToString: @"door"]) {
-                    [NSThread sleepForTimeInterval:2.0f];
-                    node.position = ccp(c*BLOCK_LENGTH, r*BLOCK_LENGTH);
-                    
+                    CGPoint newPosition = [self getPositionForRow:r andColumn:c];
+                    id fadeOut = [CCActionFadeOut actionWithDuration:0.5];
+                    id move = [CCActionCallBlock actionWithBlock:^{
+                        node.position = newPosition;
+                    }];
+                    id fadeIn = [CCActionFadeIn actionWithDuration:0.5];
+                    id sequence = [CCActionSequence actions:fadeOut, move, fadeIn, nil];
+                    [node runAction:sequence];
                 }
             }
         }
