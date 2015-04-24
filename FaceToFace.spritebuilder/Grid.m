@@ -6,21 +6,15 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
+#include <stdlib.h>
 #import "Grid.h"
 #import "DEMazeGenerator.h"
 #import "Block.h"
 #import "player.h"
 #import "destination.h"
-#import "bad.h"
+#import "Monster.h"
 #import "door.h"
-#include <stdlib.h>
-
-typedef NS_ENUM(NSUInteger, Direction) {
-    North = 0,
-    South = 1,
-    East = 2,
-    West = 3
-};
+#import "Direction.h"
 
 static const int GRID_ROWS = 8;
 static const int GRID_COLUMNS = 5;
@@ -33,7 +27,7 @@ static const int BLOCK_LENGTH = 24;
     CGPoint firstLocation;
     CGPoint lastLocation;
     NSMutableArray *mazeArray;
-    Direction currentDirection;
+    NSMutableArray *monsters;
 }
 
 + (Direction) getReverseDirection:(Direction) direction {
@@ -55,9 +49,8 @@ static const int BLOCK_LENGTH = 24;
 - (void) onEnter{
     [super onEnter];
     NSLog(@"onenter grid");
+    monsters = [NSMutableArray array];
     [self setupGrid];
-    [[CCDirector sharedDirector] view];
-    
     self.userInteractionEnabled = YES;
 }
 
@@ -110,7 +103,7 @@ static const int BLOCK_LENGTH = 24;
             
         }
         // Place the initial position of monsters
-        [self genMonster];
+        [self genMonsters];
         [self genDoors];
         NSString *level = [NSString stringWithFormat:@"level%dmaze",1];
         [[NSUserDefaults standardUserDefaults] setObject:mazeArray forKey:level];
@@ -135,55 +128,53 @@ static const int BLOCK_LENGTH = 24;
     }
 }
 
--(void) genMonster {
+-(void) genMonsters {
     int x = 0;
     int y = 0;
     do{
-        x = [ self genRandIndex:1 To: (int)[[mazeArray objectAtIndex:1] count]];
+        x = [self genRandIndex:1 To: (int)[[mazeArray objectAtIndex:1] count]];
         y = [self genRandIndex:10 To: (int)([mazeArray count]-1)];
-        
     } while(![mazeArray[y][x] isEqualToString:@"e"]);
     printf("x= %d; y: %d\n", x, y);
     mazeArray[y][x] = @"m";
 }
 
--(void) startMyTimer: (CCSprite *) monster {
-    [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(fireTimer:) userInfo:monster repeats:YES];
-    
+-(void) startMyTimer {
+    [NSTimer scheduledTimerWithTimeInterval:0.1f
+                                     target:self
+                                   selector:@selector(fireTimer:)
+                                   userInfo:nil
+                                    repeats:YES];
 }
 
--(void) fireTimer: (NSTimer *) timer{
-    
-    // int d = (int)[[[timer userInfo] objectAtIndex:1] integerValue];
-    [self moveMonster:[timer userInfo]];
-    //[[timer userInfo] setObject: [NSNumber numberWithInt:d] atIndex:1];
+-(void) fireTimer:(NSTimer *) timer{
+    CCLOG(@"timer fired, start to move monsters %lu", monsters.count);
+    for (Monster *monster in monsters) {
+        [self moveMonster:monster];
+    }
 }
 
-- (int) currentPositionToRow: (CCNode *)monster {
-    return (int) monster.position.y/BLOCK_LENGTH;
+- (int) currentPositionToRow: (CCNode *)node {
+    return (int) node.position.y/BLOCK_LENGTH;
 }
 
-- (int) currentPositionToColumn: (CCNode *)monster {
-    return (int) monster.position.x/BLOCK_LENGTH;
+- (int) currentPositionToColumn: (CCNode *)node {
+    return (int) node.position.x/BLOCK_LENGTH;
 }
 
-- (CGPoint) getPositionForRow: (int)row andColumn:(int)column {
+- (CGPoint) getPositionForRow: (NSUInteger)row andColumn:(NSUInteger)column {
     return ccp(column * BLOCK_LENGTH, row * BLOCK_LENGTH);
 }
 
-- (void) updateNextDirection: (CCNode *)monster {
-    int row = [self currentPositionToRow:monster];
-    int column = [self currentPositionToColumn:monster];
-    currentDirection = [self genRandDirect:row and:column];
+- (Direction) getNextDirectionForNode: (Monster *)monster {
+    return [self generateRandomDirectionForMonster:monster];
 }
 
-- (void) moveMonster: (CCSprite *) monster {
-    printf("direct is : %lu\n", currentDirection);
-    
-    int row = [self currentPositionToRow:monster];
-    int column = [self currentPositionToColumn:monster];
-    
-    switch (currentDirection) {
+- (void) moveMonster: (Monster*) monster {
+    CCLOG(@"moving monster %@, direct is : %lu\n", monster, monster.direction);
+    NSUInteger row = [self getRowForPosition:monster.position];
+    NSUInteger column = [self getColumnForPosition:monster.position];
+    switch (monster.direction) {
         case North:
             // move up
             if ([mazeArray[row+1][column] isEqualToString:@"e"]) {
@@ -212,11 +203,26 @@ static const int BLOCK_LENGTH = 24;
         default:
             NSAssert(NO, @"impossible");
     }
-    
-    [self updateNextDirection:monster];
+    monster.direction = [self getNextDirectionForNode:monster];
+    [self detectRendezvous];
 }
 
--(Direction) genRandDirect: (int) row and: (int) column{
+- (void) detectRendezvous {
+    
+}
+
+- (NSUInteger) getRowForPosition: (CGPoint) position {
+    return position.y / BLOCK_LENGTH;
+}
+
+- (NSUInteger) getColumnForPosition: (CGPoint) position {
+    return position.x / BLOCK_LENGTH;
+}
+
+-(Direction) generateRandomDirectionForMonster: (Monster *)monster {
+    NSUInteger row = [self getRowForPosition:monster.position];
+    NSUInteger column = [self getColumnForPosition:monster.position];
+    
     NSMutableSet* directArray = [NSMutableSet set];
     if ([mazeArray[row+1][column] isEqualToString:@"e"]) {
         // can go up
@@ -242,14 +248,14 @@ static const int BLOCK_LENGTH = 24;
     NSLog(@"direct array:  %@",directArray);
     
     if (directArray.count > 1) {
-        NSNumber *reverseDirection = [NSNumber numberWithUnsignedInteger:[Grid getReverseDirection:currentDirection]];
+        NSNumber *reverseDirection = [NSNumber numberWithUnsignedInteger:[Grid getReverseDirection:monster.direction]];
         [directArray removeObject:reverseDirection];
         
         int randDirect = arc4random_uniform((u_int32_t) directArray.count);
         Direction newDirection = [directArray.allObjects[randDirect] unsignedIntegerValue];
         
         NSLog(@"current direction %lu, reverse direction: %lu, now size is cut: %lu, chose new direction %lu",
-              currentDirection, reverseDirection.unsignedIntegerValue, directArray.count, newDirection);
+              monster.direction, reverseDirection.unsignedIntegerValue, directArray.count, newDirection);
         
         return newDirection;
     } else {
@@ -299,12 +305,12 @@ static const int BLOCK_LENGTH = 24;
                 des.position = ccp(x,y);
                 [self addChild:des];
             }else if([mazeArray[row][column]  isEqual: @"m"]){
-                bad *monster = [[bad alloc] initBad: 24 andHeight: 24];
+                Monster *monster = [Monster newMonsterWithWidth:24 andHeight:24];
                 monster.anchorPoint = ccp(0,0);
                 monster.position = ccp(x,y);
                 [self addChild:monster z:2];
+                [monsters addObject:monster];
                 mazeArray[row][column] = @"e";
-                
             }else if([mazeArray[row][column] isEqualToString:@"door"])
             {
                 door *Door = [[door alloc] initDoor:24];
@@ -319,16 +325,8 @@ static const int BLOCK_LENGTH = 24;
         printf("\n");
         y += _cellHeight;
     }
-    
-    for( CCSprite* node in self.children){
-        if (node.zOrder == 2) {
-            NSLog(@"Before the timer");
-            [self startMyTimer: node];
-        }
-    }
-    
+    [self startMyTimer];
 }
-
 
 -(void) moveToTransporter: (CCSprite *) node {
     NSLog(@"%f,%f",node.position.x,node.position.y);

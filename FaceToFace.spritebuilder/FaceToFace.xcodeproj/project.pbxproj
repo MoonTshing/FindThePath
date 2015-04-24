@@ -20,7 +20,7 @@
 		736C56BB1AD4CAEE002BC576 /* level1.m in Sources */ = {isa = PBXBuildFile; fileRef = 736C56BA1AD4CAEE002BC576 /* level1.m */; };
 		736C56BE1AD4CB2B002BC576 /* player.m in Sources */ = {isa = PBXBuildFile; fileRef = 736C56BD1AD4CB2B002BC576 /* player.m */; };
 		73CB634D1AE1A65A0015E8CA /* destination.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CB634C1AE1A65A0015E8CA /* destination.png */; };
-		73CB63501AE1B0240015E8CA /* bad.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CB634F1AE1B0240015E8CA /* bad.m */; };
+		73CB63501AE1B0240015E8CA /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CB634F1AE1B0240015E8CA /* Monster.m */; };
 		73CB63521AE1B17B0015E8CA /* badGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CB63511AE1B17B0015E8CA /* badGreen.png */; };
 		73CB63541AE1B6FB0015E8CA /* door.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CB63531AE1B6FB0015E8CA /* door.png */; };
 		73CB63571AE1B7110015E8CA /* door.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CB63561AE1B7110015E8CA /* door.m */; };
@@ -200,6 +200,7 @@
 		734A9F2B1AE1788600435452 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = "<group>"; };
 		734A9F2F1AE196BC00435452 /* destination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = destination.h; sourceTree = "<group>"; };
 		734A9F301AE196BC00435452 /* destination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = destination.m; sourceTree = "<group>"; };
+		73545DBC1AEAD01100B4CD07 /* Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Direction.h; sourceTree = "<group>"; };
 		73697A751ACE16A0006A9D56 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		73697A761ACE16A0006A9D56 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		73697A791AD3589B006A9D56 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -211,8 +212,8 @@
 		736C56BC1AD4CB2B002BC576 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
 		736C56BD1AD4CB2B002BC576 /* player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = player.m; sourceTree = "<group>"; };
 		73CB634C1AE1A65A0015E8CA /* destination.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = destination.png; sourceTree = "<group>"; };
-		73CB634E1AE1B0240015E8CA /* bad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bad.h; sourceTree = "<group>"; };
-		73CB634F1AE1B0240015E8CA /* bad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bad.m; sourceTree = "<group>"; };
+		73CB634E1AE1B0240015E8CA /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Monster.h; sourceTree = "<group>"; };
+		73CB634F1AE1B0240015E8CA /* Monster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Monster.m; sourceTree = "<group>"; };
 		73CB63511AE1B17B0015E8CA /* badGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = badGreen.png; sourceTree = "<group>"; };
 		73CB63531AE1B6FB0015E8CA /* door.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = door.png; path = "../object_emoji-tiles/door.png"; sourceTree = "<group>"; };
 		73CB63551AE1B7110015E8CA /* door.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = door.h; sourceTree = "<group>"; };
@@ -526,13 +527,14 @@
 				734A9F2F1AE196BC00435452 /* destination.h */,
 				73CB63511AE1B17B0015E8CA /* badGreen.png */,
 				734A9F301AE196BC00435452 /* destination.m */,
-				73CB634E1AE1B0240015E8CA /* bad.h */,
-				73CB634F1AE1B0240015E8CA /* bad.m */,
+				73CB634E1AE1B0240015E8CA /* Monster.h */,
+				73CB634F1AE1B0240015E8CA /* Monster.m */,
 				73CB63531AE1B6FB0015E8CA /* door.png */,
 				73CB63551AE1B7110015E8CA /* door.h */,
 				73CB63561AE1B7110015E8CA /* door.m */,
 				73CB6F381ADB1C0900F40AC8 /* blue.png */,
 				D352B48019EC608A00829775 /* MetalShaders */,
+				73545DBC1AEAD01100B4CD07 /* Direction.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -945,7 +947,7 @@
 				73F830E61AC8EA6000273F8F /* LevelChosen.m in Sources */,
 				73697A7B1AD3589B006A9D56 /* Grid.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
-				73CB63501AE1B0240015E8CA /* bad.m in Sources */,
+				73CB63501AE1B0240015E8CA /* Monster.m in Sources */,
 				736C56B71AD4C7BD002BC576 /* Pause.m in Sources */,
 				736C56BB1AD4CAEE002BC576 /* level1.m in Sources */,
 				73697A771ACE16A0006A9D56 /* GameScene.m in Sources */,
