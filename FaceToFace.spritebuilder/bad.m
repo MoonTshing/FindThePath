@@ -20,7 +20,7 @@
 }
 -(void) moveMonster {
     //get monster's position
-    int a = self.position.x;
+    
     // get the index of array
     // check if it is movable in certain position and generate random place to move
 }
