@@ -8,7 +8,8 @@
 
 #import "CCSprite.h"
 
-@interface player : CCSprite
+@interface Player : CCSprite
+
 -(id) initPlayer:(int)width;
 
 @end

@@ -10,7 +10,7 @@
 #import "Grid.h"
 #import "DEMazeGenerator.h"
 #import "Block.h"
-#import "player.h"
+#import "Player.h"
 #import "destination.h"
 #import "Monster.h"
 #import "door.h"
@@ -28,6 +28,8 @@ static const int BLOCK_LENGTH = 24;
     CGPoint lastLocation;
     NSMutableArray *mazeArray;
     NSMutableArray *monsters;
+    CCNode *player;
+    NSTimer *timer;
 }
 
 + (Direction) getReverseDirection:(Direction) direction {
@@ -140,15 +142,21 @@ static const int BLOCK_LENGTH = 24;
 }
 
 -(void) startMyTimer {
-    [NSTimer scheduledTimerWithTimeInterval:0.1f
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.1f
                                      target:self
                                    selector:@selector(fireTimer:)
                                    userInfo:nil
                                     repeats:YES];
 }
 
+- (void)stopGame: (BOOL)win {
+    [timer invalidate];
+    timer = nil;
+    CCLOG(@"you %@", win ? @"won" : @"lost");
+}
+
 -(void) fireTimer:(NSTimer *) timer{
-    CCLOG(@"timer fired, start to move monsters %lu", monsters.count);
+//    CCLOG(@"timer fired, start to move monsters %lu", monsters.count);
     for (Monster *monster in monsters) {
         [self moveMonster:monster];
     }
@@ -171,7 +179,7 @@ static const int BLOCK_LENGTH = 24;
 }
 
 - (void) moveMonster: (Monster*) monster {
-    CCLOG(@"moving monster %@, direct is : %lu\n", monster, monster.direction);
+//    CCLOG(@"moving monster %@, direct is : %lu\n", monster, monster.direction);
     NSUInteger row = [self getRowForPosition:monster.position];
     NSUInteger column = [self getColumnForPosition:monster.position];
     switch (monster.direction) {
@@ -204,11 +212,17 @@ static const int BLOCK_LENGTH = 24;
             NSAssert(NO, @"impossible");
     }
     monster.direction = [self getNextDirectionForNode:monster];
-    [self detectRendezvous];
+    if (YES == [self detectRendezvous:monster andAnotherNode:player]) {
+        [self stopGame:NO];
+    }
 }
 
-- (void) detectRendezvous {
-    
+- (BOOL) detectRendezvous: (CCNode*)nodeA andAnotherNode: (CCNode *)nodeB {
+    if ([self getRowForPosition:nodeA.position] == [self getRowForPosition:nodeB.position] &&
+        [self getColumnForPosition:nodeA.position] == [self getColumnForPosition:nodeB.position]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (NSUInteger) getRowForPosition: (CGPoint) position {
@@ -240,13 +254,13 @@ static const int BLOCK_LENGTH = 24;
         // can go right
         [directArray addObject:[NSNumber numberWithUnsignedInteger:East]];
     }
-    NSLog(@"[mazeArray[row+1][column]: %@",mazeArray[row+1][column]);
-    NSLog(@"[mazeArray[row-1][column]: %@",mazeArray[row-1][column]);
-    NSLog(@"[mazeArray[row][column-1]: %@",mazeArray[row][column-1]);
-    NSLog(@"[mazeArray[row][column+1]: %@",mazeArray[row][column+1]);
     
-    NSLog(@"direct array:  %@",directArray);
-    
+//    NSLog(@"[mazeArray[row+1][column]: %@",mazeArray[row+1][column]);
+//    NSLog(@"[mazeArray[row-1][column]: %@",mazeArray[row-1][column]);
+//    NSLog(@"[mazeArray[row][column-1]: %@",mazeArray[row][column-1]);
+//    NSLog(@"[mazeArray[row][column+1]: %@",mazeArray[row][column+1]);
+//    NSLog(@"direct array:  %@",directArray);
+   
     if (directArray.count > 1) {
         NSNumber *reverseDirection = [NSNumber numberWithUnsignedInteger:[Grid getReverseDirection:monster.direction]];
         [directArray removeObject:reverseDirection];
@@ -254,8 +268,8 @@ static const int BLOCK_LENGTH = 24;
         int randDirect = arc4random_uniform((u_int32_t) directArray.count);
         Direction newDirection = [directArray.allObjects[randDirect] unsignedIntegerValue];
         
-        NSLog(@"current direction %lu, reverse direction: %lu, now size is cut: %lu, chose new direction %lu",
-              monster.direction, reverseDirection.unsignedIntegerValue, directArray.count, newDirection);
+//        NSLog(@"current direction %lu, reverse direction: %lu, now size is cut: %lu, chose new direction %lu",
+//              monster.direction, reverseDirection.unsignedIntegerValue, directArray.count, newDirection);
         
         return newDirection;
     } else {
@@ -295,10 +309,10 @@ static const int BLOCK_LENGTH = 24;
             }else if([mazeArray[row][column]  isEqual: @"e"]){
                 printf("  ");
             }else if([mazeArray[row][column]  isEqual: @"p"]){
-                player *p = [[player alloc] initPlayer:24];
-                p.anchorPoint = ccp(0,0);
-                p.position = ccp(x,y);
-                [self addChild:p z:1];
+                player = [[Player alloc] initPlayer:24];
+                player.anchorPoint = ccp(0,0);
+                player.position = ccp(x,y);
+                [self addChild:player z:1];
             }else if([mazeArray[row][column]  isEqual: @"d"]){
                 destination *des = [[destination alloc] initDest: 24];
                 des.anchorPoint = ccp(0,0);

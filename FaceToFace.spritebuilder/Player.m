@@ -6,10 +6,11 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "player.h"
+#import "Player.h"
 #import "Block.h"
 
-@implementation player
+@implementation Player
+
 -(instancetype) initPlayer:(int) width{
     self = [super initWithImageNamed:@"Assets/player.png"];
     [self resizeSprite: self toWidth:width toHeight:width];
