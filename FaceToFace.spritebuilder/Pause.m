@@ -10,4 +10,7 @@
 
 @implementation Pause
 
+-(void) onEnter{
+        
+}
 @end

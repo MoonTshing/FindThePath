@@ -13,7 +13,7 @@
 {
     NSLog(@"exit button is pressed");
     CCScene* scene = [CCBReader loadAsScene:@"MainScene"];
-    CCTransition* transition = [CCTransition transitionFadeWithDuration:1.5];
+    CCTransition* transition = [CCTransition transitionFadeWithDuration:0.5];
     [[CCDirector sharedDirector] presentScene:scene withTransition:transition];
 }
 
@@ -21,7 +21,7 @@
 {
     NSLog(@"level 1 button is pressed");
     CCScene* scene = [CCBReader loadAsScene:@"GameScene"];
-    CCTransition* transition = [CCTransition transitionFadeWithDuration:1.5];
+    CCTransition* transition = [CCTransition transitionFadeWithDuration:0.5];
     [[CCDirector sharedDirector] presentScene:scene withTransition:transition];
 }
 @end

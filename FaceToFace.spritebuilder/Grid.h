@@ -9,6 +9,7 @@
 #import "CCSprite.h"
 
 @interface Grid : CCSprite
-
-
+-(void) resumeGame;
+-(void) pauseGame;
+//-(void) restartGame: (CCScene*)replay;
 @end
