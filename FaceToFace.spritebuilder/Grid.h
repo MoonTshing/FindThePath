@@ -9,6 +9,9 @@
 #import "CCSprite.h"
 
 @interface Grid : CCSprite
+@property(nonatomic, assign) int level;
+@property(nonatomic, assign) int currentScore;
+@property(nonatomic, assign) int highScore;
 -(void) resumeGame;
 -(void) pauseGame;
 //-(void) restartGame: (CCScene*)replay;

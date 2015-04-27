@@ -12,7 +12,7 @@
 
 -(instancetype) initBlock: (int) width{
     self = [super initWithImageNamed:@"Assets/block.png"];
-    self.opacity = 0.5;
+//    self.opacity = 0.5;
     [self resizeSprite: self toWidth:width toHeight:width];
     return self;
 }

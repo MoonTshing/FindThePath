@@ -8,22 +8,23 @@
 
 #import "bgSound.h"
 
-@implementation bgSound
+@implementation bgSound{
+    AVPlayer *player;
+}
 
--(void) playSoundwithName: (NSString *)fileName{
-    NSString *soundPath = fileName;
-    NSURL *soundFileURL = [NSURL fileURLWithPath:soundPath];
-    NSError * err;
-    AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:&err];
-    if (nil == audioPlayer) {
-        NSLog(@"Failed to play %@, Error: %@",soundFileURL,err);
-        return;
-    }
-    [audioPlayer prepareToPlay];
-    [audioPlayer setVolume:3];
-    [audioPlayer setDelegate:nil];
-    audioPlayer.numberOfLoops = 100;
-    [audioPlayer play];
+-(void) playSoundwithName: (NSString *)fileName RunNumberOfLoop: (int) numOfLoop{
+    NSLog(@"enters the play sound func");
+
+    
+    player = [[AVPlayer alloc] init];
+     NSString *soundPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"mp3"];
+    NSURL *url=[NSURL URLWithString:soundPath];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
+    player = [AVPlayer playerWithPlayerItem:playerItem];
+    [player play];
+    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    NSLog(@"leaves the play sound func");
+
 }
 
 @end

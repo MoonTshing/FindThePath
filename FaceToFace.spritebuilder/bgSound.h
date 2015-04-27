@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
+#import <OALSimpleAudio.h>
 
 @interface bgSound : AVPlayer
--(void) playSoundwithName: (NSString *)fileName;
+-(void) playSoundwithName: (NSString *)fileName RunNumberOfLoop: (int) numOfLoop;
 @end

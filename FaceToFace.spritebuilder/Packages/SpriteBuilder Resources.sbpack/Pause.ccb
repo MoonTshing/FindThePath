@@ -180,7 +180,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/resume.png</string>
+											<string>Buttons/next.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -204,7 +204,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/resume.png</string>
+											<string>Buttons/next.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -519,7 +519,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/restart.png</string>
+											<string>Buttons/replay.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -530,7 +530,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/restart.png</string>
+											<string>Buttons/replay.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -845,7 +845,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/restart.png</string>
+											<string>Buttons/home.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -856,7 +856,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/restart.png</string>
+											<string>Buttons/home.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -1171,7 +1171,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/resume.png</string>
+											<string>Buttons/sound.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -1182,7 +1182,7 @@
 										<key>value</key>
 										<array>
 											<string></string>
-											<string>Resources/resume.png</string>
+											<string>Buttons/sound.png</string>
 										</array>
 									</dict>
 									<dict>
@@ -1421,8 +1421,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>1</real>
-									<real>1</real>
+									<real>0.80000001192092896</real>
+									<real>0.80000001192092896</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -1435,7 +1435,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Resources/square.png</string>
+									<string>Buttons/s.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1564,8 +1564,6 @@
 						<real>0.5</real>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

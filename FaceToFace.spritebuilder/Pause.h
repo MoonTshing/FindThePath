@@ -11,5 +11,5 @@
 @interface Pause : CCNode
 
 
--(void)resumeButtonPressed;
+
 @end

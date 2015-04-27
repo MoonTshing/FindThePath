@@ -110,7 +110,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Resources/background.png</string>
+							<string>Resources/bg.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -282,7 +282,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Resources/exit.png</string>
+							<string>Buttons/return.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -2954,8 +2954,6 @@
 										</array>
 									</dict>
 								</array>
-								<key>selected</key>
-								<true/>
 							</dict>
 							<dict>
 								<key>UUID</key>

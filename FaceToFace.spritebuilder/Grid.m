@@ -19,7 +19,8 @@
 static const int GRID_ROWS = 8;
 static const int GRID_COLUMNS = 5;
 static const int BLOCK_LENGTH = 24;
-
+static const int SCORE_LIMIT = 10000;
+static const int ONE_MOVE_SCORE = 100;
 @implementation Grid {
     // char _gridArray[GRID_ROWS*2+1][GRID_COLUMNS*2+1];
     float _cellWidth;
@@ -31,6 +32,9 @@ static const int BLOCK_LENGTH = 24;
     CCNode *player;
     NSTimer *timer;
     CCNode *des;
+    CCNode *_win;
+    CCNode *_lose;
+
 }
 
 + (Direction) getReverseDirection:(Direction) direction {
@@ -55,6 +59,24 @@ static const int BLOCK_LENGTH = 24;
     monsters = [NSMutableArray array];
     [self setupGrid];
     self.userInteractionEnabled = YES;
+    _currentScore = SCORE_LIMIT;
+    _level = 1;
+    _highScore = [self getHighestScoreByLevel:_level];
+    _win.zOrder = -1;
+    _win.visible = NO;
+    _lose.zOrder = -1;
+    _lose.visible = NO;
+}
+
+-(int) getHighestScoreByLevel: (int) level{
+    NSString *tmp = [NSString stringWithFormat:@"level%dHighscore",level];
+    if([[NSUserDefaults standardUserDefaults] integerForKey:tmp] != (NSInteger)nil)
+    {
+        return (int)[[NSUserDefaults standardUserDefaults] integerForKey:tmp];
+    }else{
+        return 0;
+    }
+    
 }
 
 
@@ -68,12 +90,31 @@ static const int BLOCK_LENGTH = 24;
 - (void)stopGame: (BOOL)win {
     [timer invalidate];
     timer = nil;
+    if (win) {
+        // store the high score
+        _highScore = _highScore > _currentScore ? _highScore:_currentScore;
+        
+        NSString *tmp = [NSString stringWithFormat:@"level%dHighscore",_level];
+        [[NSUserDefaults standardUserDefaults] setInteger:_highScore forKey:tmp];
+        
+        // pop up the window to next level/back home
+        _win.zOrder = 10;
+        _win.visible = YES;
+        _win.opacity = 0.6;
+       // CCTransition* transition = [CCTransition transitionFadeWithDuration:0.5];
+        //[[CCDirector sharedDirector] presentScene:scene withTransition:transition];
+        // play the winner sound (dunno how to make it easy)
+    }else{
+        //pop up the loser window( I am so mean >_<) replay or quit
+        //play the loser sound effect
+    }
     CCLOG(@"you %@", win ? @"won" : @"lost");
 }
 
 -(void) pauseGame{
     [timer invalidate];
     timer = nil;
+    
 }
 -(void) resumeGame{
     [self startMyTimer];
@@ -534,6 +575,11 @@ static const int BLOCK_LENGTH = 24;
             if ([self ableToMove:tmp]) {
                 NSLog(@"%f,%f",node.position.x,node.position.y);
                 node.position = tmp;
+                if (_currentScore >= 100) {
+                    _currentScore -= ONE_MOVE_SCORE;
+                }else{
+                    [self stopGame:NO];
+                }
                 
             }
             [self moveToTheOtherDoor:node];
@@ -553,7 +599,11 @@ static const int BLOCK_LENGTH = 24;
             if ([self ableToMove:tmp]) {
                 
                 node.position = tmp;
-                
+                if (_currentScore >= 100) {
+                    _currentScore -= ONE_MOVE_SCORE;
+                }else{
+                    [self stopGame:NO];
+                }
                 
             }
             [self moveToTheOtherDoor:node];
@@ -572,7 +622,11 @@ static const int BLOCK_LENGTH = 24;
                 
                 node.position = tmp;
                 
-                
+                if (_currentScore >= 100) {
+                    _currentScore -= ONE_MOVE_SCORE;
+                }else{
+                    [self stopGame:NO];
+                }
             }[self moveToTheOtherDoor:node];
             if (YES == [self detectRendezvous:node andAnotherNode:des]) {
                 [self stopGame:YES];
@@ -589,7 +643,11 @@ static const int BLOCK_LENGTH = 24;
             if ([self ableToMove:tmp]) {
                 
                 node.position = tmp;
-                
+                if (_currentScore >= 100) {
+                    _currentScore -= ONE_MOVE_SCORE;
+                }else{
+                    [self stopGame:NO];
+                }
             }
             [self moveToTheOtherDoor:node];
             if (YES == [self detectRendezvous:node andAnotherNode:des]) {
