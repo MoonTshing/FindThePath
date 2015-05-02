@@ -62,10 +62,12 @@ static const int ONE_MOVE_SCORE = 100;
     _currentScore = SCORE_LIMIT;
     _level = [self getCurrentLevel];
     _highScore = [self getHighestScoreByLevel:_level];
-
+    [self setMonsterAmount];
+    [self setMonsterSpeed];
     [self setupGrid];
     [self playbg:@"soundeffect/backgrounMusic.mp3" Loop:YES];
     NSLog(@"current level: %d",_level);
+    
 }
 -(int) getCurrentLevel{
     return (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"currentLevel"];
@@ -81,7 +83,19 @@ static const int ONE_MOVE_SCORE = 100;
     
 }
 
+-(void) setMonsterSpeed {
+    NSInteger currentlvl = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentLevel" ];
+    NSLog(@"currentlvl: %ld", (long)currentlvl);
 
+    float speed = 0.65 - currentlvl*0.05;
+    [[NSUserDefaults standardUserDefaults] setFloat:speed forKey:@"monsterSpeed"];
+}
+-(void) setMonsterAmount{
+    NSInteger currentlvl = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentLevel" ];
+    NSLog(@"currentlvl: %ld", (long)currentlvl);
+    NSInteger amount = currentlvl >= 5? 2:1;
+    [[NSUserDefaults standardUserDefaults] setInteger:amount forKey:@"monsterAmount"];
+}
 /*=============================================================================================
  
                                 Game state control functions
@@ -104,6 +118,8 @@ static const int ONE_MOVE_SCORE = 100;
         [bgMusic stopBg];
 
         CCScene *win = [CCBReader loadAsScene:@"Win" owner:self.parent];
+        NSInteger highestlvl = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentHighestLevel"];
+        [[NSUserDefaults standardUserDefaults] setInteger:highestlvl>_level+1? highestlvl:_level+1 forKey:@"currentHighestLevel"];
         [self.parent addChild:win z:1 name:@"win"];
         // play the winner sound (dunno how to make it easy)
     }else{
@@ -151,11 +167,14 @@ static const int ONE_MOVE_SCORE = 100;
  =============================================================================================*/
 
 -(void) startMyTimer {
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+    float tmp = [[NSUserDefaults standardUserDefaults] floatForKey:@"monsterSpeed"];
+    NSLog(@"current speed: %f", tmp);
+    timer = [NSTimer scheduledTimerWithTimeInterval:tmp
                                              target:self
                                            selector:@selector(fireTimer:)
                                            userInfo:nil
                                             repeats:YES];
+    
 }
 
 
@@ -189,26 +208,26 @@ static const int ONE_MOVE_SCORE = 100;
     switch (monster.direction) {
         case North:
             // move up
-            if ([mazeArray[row+1][column] isEqualToString:@"e"]) {
+            if ([mazeArray[row+1][column] isEqualToString:@"e"]||[mazeArray[row+1][column] isEqualToString:@"door"]) {
                 monster.position = [self getPositionForRow:row+1 andColumn:column];
             }
             break;
         case South:
             // move down
-            if ([mazeArray[row-1][column] isEqualToString:@"e"]) {
+            if ([mazeArray[row-1][column] isEqualToString:@"e"]||[mazeArray[row-1][column] isEqualToString:@"door"]) {
                 monster.position = [self getPositionForRow:row-1 andColumn:column];
             }
             break;
         case West:
             //move left
-            if ([mazeArray[row][column-1] isEqualToString:@"e"]) {
+            if ([mazeArray[row][column-1] isEqualToString:@"e"]||[mazeArray[row][column-1] isEqualToString:@"door"]) {
                 monster.position = [self getPositionForRow:row andColumn:column-1];
                 
             }
             break;
         case East:
             //  move right
-            if ([mazeArray[row][column+1] isEqualToString:@"e"]) {
+            if ([mazeArray[row][column+1] isEqualToString:@"e"]||[mazeArray[row][column+1] isEqualToString:@"door"]) {
                 monster.position = [self getPositionForRow:row andColumn:column+1];
             }
             break;
@@ -260,6 +279,9 @@ static const int ONE_MOVE_SCORE = 100;
  
  =============================================================================================*/
 -(void) genMonsters {
+    NSLog(@"current amount: %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"monsterAmount"]);
+    
+    for (int i = 0; i < [[NSUserDefaults standardUserDefaults] integerForKey:@"monsterAmount"]; i++) {
     int x = 0;
     int y = 0;
     do{
@@ -268,6 +290,7 @@ static const int ONE_MOVE_SCORE = 100;
     } while(![mazeArray[y][x] isEqualToString:@"e"]);
     printf("x= %d; y: %d\n", x, y);
     mazeArray[y][x] = @"m";
+    }
 }
 
 - (NSUInteger) getRowForPosition: (CGPoint) position {
@@ -283,19 +306,19 @@ static const int ONE_MOVE_SCORE = 100;
     NSUInteger column = [self getColumnForPosition:monster.position];
     
     NSMutableSet* directArray = [NSMutableSet set];
-    if ([mazeArray[row+1][column] isEqualToString:@"e"]) {
+    if ([mazeArray[row+1][column] isEqualToString:@"e"]||[mazeArray[row+1][column] isEqualToString:@"door"]) {
         // can go up
         [directArray addObject:[NSNumber numberWithUnsignedInteger:North]];
     }
-    if ([mazeArray[row-1][column] isEqualToString:@"e"]) {
+    if ([mazeArray[row-1][column] isEqualToString:@"e"]||[mazeArray[row-1][column] isEqualToString:@"door"]) {
         // can go down
         [directArray addObject:[NSNumber numberWithUnsignedInteger:South]];
     }
-    if ([mazeArray[row][column-1] isEqualToString:@"e"]) {
+    if ([mazeArray[row][column-1] isEqualToString:@"e"]||[mazeArray[row][column-1] isEqualToString:@"door"]) {
         // can go left
         [directArray addObject:[NSNumber numberWithUnsignedInteger:West]];
     }
-    if ([mazeArray[row][column+1] isEqualToString:@"e"]) {
+    if ([mazeArray[row][column+1] isEqualToString:@"e"]||[mazeArray[row][column+1] isEqualToString:@"door"]) {
         // can go right
         [directArray addObject:[NSNumber numberWithUnsignedInteger:East]];
     }

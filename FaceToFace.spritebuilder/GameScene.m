@@ -29,14 +29,12 @@
     [super onEnter];
     _currentScore.string = [NSString stringWithFormat:@"%d", _grid.currentScore];
     _highestScore.string = [NSString stringWithFormat:@"%d", _grid.highScore];
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"needTutorial"] == nil){
-        BOOL needTutorial = YES;
-        [[NSUserDefaults standardUserDefaults] setBool:needTutorial forKey:@"needTutorial"];
-    }
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"needTutorial"] == YES) {
         CCNode *tutorial = [CCBReader loadAsScene:@"Tutorial" owner:self];
         tutorial.opacity = 0.6;
         [self addChild:tutorial z: 5 name:@"tutorial"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"needTutorial"];
     }
     NSLog(@"level is %d",level);
    // [self playbg:@"soundeffect/backgrounMusic.mp3" Loop:YES];
@@ -92,6 +90,20 @@
     //TODO: game pause
 }
 
+-(void)nextLevelButtonPressed{
+    CCLOG(@"next level button pressed");
+    NSInteger highestLevel = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentHighestLevel"];
+    if (highestLevel <= 9) {
+        NSInteger tmp =[[NSUserDefaults standardUserDefaults] integerForKey:@"currentLevel"];
+        if ( tmp<= highestLevel && tmp < 9) {
+            [[NSUserDefaults standardUserDefaults] setInteger:tmp+1 forKey:@"currentLevel"];
+            CCScene *nextLevel = [CCBReader loadAsScene:@"GameScene"];
+            [[CCDirector sharedDirector]replaceScene:nextLevel];
+        }
+    }else{
+        CCLOG(@"no higher level");
+    }
+}
 
 -(void) playSoundEffect:(NSString *)fileName Loop: (BOOL) isLoop{
     NSLog(@"enter play sound effect");

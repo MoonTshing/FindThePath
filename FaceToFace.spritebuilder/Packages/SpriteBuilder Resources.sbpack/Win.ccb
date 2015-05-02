@@ -124,7 +124,7 @@
 										<key>value</key>
 										<array>
 											<string>nextLevelButtonPressed</string>
-											<integer>1</integer>
+											<integer>2</integer>
 										</array>
 									</dict>
 									<dict>
@@ -378,6 +378,8 @@
 										</array>
 									</dict>
 								</array>
+								<key>selected</key>
+								<true/>
 							</dict>
 							<dict>
 								<key>UUID</key>
@@ -1030,8 +1032,6 @@
 										</array>
 									</dict>
 								</array>
-								<key>selected</key>
-								<true/>
 							</dict>
 						</array>
 						<key>customClass</key>
