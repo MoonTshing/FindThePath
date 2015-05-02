@@ -7,12 +7,16 @@
 //
 
 #import "CCSprite.h"
+#import "LevelChosen.h"
 
-@interface Grid : CCSprite
+@interface Grid : CCSprite <LevelChooseDelegate>
+
 @property(nonatomic, assign) int level;
 @property(nonatomic, assign) int currentScore;
 @property(nonatomic, assign) int highScore;
+
 -(void) resumeGame;
 -(void) pauseGame;
+
 //-(void) restartGame: (CCScene*)replay;
 @end

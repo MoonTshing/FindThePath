@@ -8,6 +8,14 @@
 
 #import "CCNode.h"
 
-@interface LevelChosen : CCNode
+@protocol LevelChooseDelegate <NSObject>
+
+- (void)onLevelChosen:(NSUInteger)level;
+
+@end
+
+@interface LevelChosen : CCScene
+@property (nonatomic, assign) int level;
+@property (nonatomic, weak) id<LevelChooseDelegate> delegate;
 
 @end

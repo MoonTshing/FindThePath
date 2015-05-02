@@ -15,12 +15,14 @@
 #import "Monster.h"
 #import "door.h"
 #import "Direction.h"
+#import "LevelChosen.h"
 
-static const int GRID_ROWS = 8;
-static const int GRID_COLUMNS = 5;
+static  int GRID_ROWS = 8;
+static  int GRID_COLUMNS = 5;
 static const int BLOCK_LENGTH = 24;
 static const int SCORE_LIMIT = 10000;
 static const int ONE_MOVE_SCORE = 100;
+
 @implementation Grid {
     // char _gridArray[GRID_ROWS*2+1][GRID_COLUMNS*2+1];
     float _cellWidth;
@@ -32,10 +34,8 @@ static const int ONE_MOVE_SCORE = 100;
     CCNode *player;
     NSTimer *timer;
     CCNode *des;
-    CCNode *_win;
-    CCNode *_lose;
-
-}
+    OALSimpleAudio *bgMusic;
+};
 
 + (Direction) getReverseDirection:(Direction) direction {
     switch (direction) {
@@ -57,17 +57,19 @@ static const int ONE_MOVE_SCORE = 100;
     [super onEnter];
     NSLog(@"onenter grid");
     monsters = [NSMutableArray array];
-    [self setupGrid];
+    
     self.userInteractionEnabled = YES;
     _currentScore = SCORE_LIMIT;
-    _level = 1;
+    _level = [self getCurrentLevel];
     _highScore = [self getHighestScoreByLevel:_level];
-    _win.zOrder = -1;
-    _win.visible = NO;
-    _lose.zOrder = -1;
-    _lose.visible = NO;
-}
 
+    [self setupGrid];
+    [self playbg:@"soundeffect/backgrounMusic.mp3" Loop:YES];
+    NSLog(@"current level: %d",_level);
+}
+-(int) getCurrentLevel{
+    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"currentLevel"];
+}
 -(int) getHighestScoreByLevel: (int) level{
     NSString *tmp = [NSString stringWithFormat:@"level%dHighscore",level];
     if([[NSUserDefaults standardUserDefaults] integerForKey:tmp] != (NSInteger)nil)
@@ -98,14 +100,18 @@ static const int ONE_MOVE_SCORE = 100;
         [[NSUserDefaults standardUserDefaults] setInteger:_highScore forKey:tmp];
         
         // pop up the window to next level/back home
-        _win.zOrder = 10;
-        _win.visible = YES;
-        _win.opacity = 0.6;
-       // CCTransition* transition = [CCTransition transitionFadeWithDuration:0.5];
-        //[[CCDirector sharedDirector] presentScene:scene withTransition:transition];
+        [self playSoundEffect:@"soundeffect/Winner.mp3" Loop:NO];
+        [bgMusic stopBg];
+
+        CCScene *win = [CCBReader loadAsScene:@"Win" owner:self.parent];
+        [self.parent addChild:win z:1 name:@"win"];
         // play the winner sound (dunno how to make it easy)
     }else{
         //pop up the loser window( I am so mean >_<) replay or quit
+        [self playSoundEffect:@"soundeffect/Loser.mp3" Loop:NO];
+        [bgMusic stopBg];
+        CCScene *lose = [CCBReader loadAsScene:@"Lose" owner:self.parent];
+        [self.parent addChild:lose z:1 name:@"lose"];
         //play the loser sound effect
     }
     CCLOG(@"you %@", win ? @"won" : @"lost");
@@ -121,6 +127,21 @@ static const int ONE_MOVE_SCORE = 100;
 }
 
 
+
+/*=============================================================================================
+ 
+                                    Button functions
+ 
+ =============================================================================================*/
+
+
+
+-(void)homButtonPressed {
+    CCLOG(@"call resumeButtonPressed");
+    LevelChosen *levelScene = (LevelChosen*)[CCBReader loadAsScene:@"LevelChosen"];
+    [[CCDirector sharedDirector] replaceScene:levelScene];
+    //TODO: game pause
+}
 
 
 /*=============================================================================================
@@ -306,8 +327,8 @@ static const int ONE_MOVE_SCORE = 100;
     int y = 0;
     int i = 0;
     while (i < 2) {
-        x = [ self genRandIndex:(int)arc4random_uniform(8) To: (int)[[mazeArray objectAtIndex:1] count]];
-        y = [self genRandIndex:(int)arc4random_uniform(8) To: (int)([mazeArray count]-1)];
+        x = [ self genRandIndex:(int)arc4random_uniform(8) To: (int)[[mazeArray objectAtIndex:1] count]-2];
+        y = [self genRandIndex:(int)arc4random_uniform(8) To: (int)([mazeArray count]-2)];
         if ([mazeArray[y][x] isEqualToString:@"e"] || ([mazeArray[y][x] isEqualToString:@"b"] && [self isValidplaceForDoorwithRow:y WithColumn:x]) ){
             mazeArray[y][x] = @"door";
             i++;
@@ -358,15 +379,17 @@ static const int ONE_MOVE_SCORE = 100;
  =============================================================================================*/
 
 -(void) setMazeArray {
-    
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"level1maze"] != nil) {
-        NSLog(@"already exist: %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"level1maze"]);
+    NSString *tmp = [NSString stringWithFormat:@"level%dmaze",_level];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:tmp] != nil) {
+        //NSLog(@"already exist: %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"level1maze"]);
         //NSArray *s = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"level1maze"] copyItems:YES ];
-        mazeArray = [self loadCustomObjectWithKey:@"level1maze"];
         
+        mazeArray = [self loadCustomObjectWithKey:tmp];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:tmp];
       // [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"level1maze"];
         // NSLog(@"%@", mazeArray);
     }else{
+    
     
     DEMazeGenerator *maze = [[DEMazeGenerator alloc] initWithRow:GRID_ROWS andCol:GRID_COLUMNS withStartingPoint:DEIntegerPointMake(1, 1)];
     
@@ -411,16 +434,34 @@ static const int ONE_MOVE_SCORE = 100;
         // Place the initial position of monsters
         [self genMonsters];
         [self genDoors];
-         NSString *level = [NSString stringWithFormat:@"level%dmaze",1];
-        [self saveCustomObject:mazeArray key:level];
+        [self genPath];
+        [self saveCustomObject:mazeArray key:tmp];
         //[[NSUserDefaults standardUserDefaults] setObject:mazeArray forKey:level];
-         NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"level1maze"]);
+         NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:tmp]);
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
      ];
     // NSLog(@"%@", mazeArray);
       }
 }
+
+- (void) genPath{
+    
+    int empty = 2;
+    int k = 0;
+    while (k < empty) {
+        int c = [self genRandIndex:2 To:(int)[mazeArray[1] count]-1];
+        int r = [self genRandIndex:2 To:(int)mazeArray.count-1];
+        if ([mazeArray[r][c] isEqualToString:@"b"]) {
+            if (([mazeArray[r-1][c] isEqualToString:@"b"] && [mazeArray[r+1][c] isEqualToString:@"b"]) ||
+                ([mazeArray[r][c+1] isEqualToString:@"b"] && [mazeArray[r][c-1] isEqualToString:@"b"]) ) {
+                mazeArray[r][c] = @"e";
+                k++;
+            }
+        }
+    }
+}
+
 
 
 - (void)saveCustomObject:(NSMutableArray *)object key:(NSString *)key {
@@ -490,6 +531,7 @@ static const int ONE_MOVE_SCORE = 100;
                 Door.anchorPoint = ccp(0,0);
                 Door.position = ccp(x,y);
                 [self addChild:Door];
+                //mazeArray[row][column] = @"e";
             }
             
             x += _cellWidth;
@@ -528,7 +570,7 @@ static const int ONE_MOVE_SCORE = 100;
     lastLocation = [touch locationInNode:self];
     float distance = ccpDistance(lastLocation, firstLocation);
     float angle = [self angleBetweenPoints: lastLocation andStart:firstLocation];
-    if(distance > 30)
+    if(distance > 10)
     {
         if(angle < 0.12 && angle > -0.12)
         {
@@ -658,5 +700,35 @@ static const int ONE_MOVE_SCORE = 100;
     }
 }
 
+#pragma mark - level chose
 
+- (void)onLevelChosen:(NSUInteger)level {
+    _level = (int)level;
+    NSLog(@"saaaaaaaaaaaaaaaaa");
+}
+
+-(void) playSoundEffect:(NSString *)fileName Loop: (BOOL) isLoop{
+    NSLog(@"enter play sound effect");
+    // access audio object
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    // play background sound
+    [audio playEffect:fileName volume:(1) pitch:1 pan:0 loop:isLoop];
+    NSLog(@"after play music");
+}
+
+-(void) nextLevelButtonPressed{
+    _level ++;
+    CCScene * newScene = [CCBReader loadAsScene:@"GameScene"];
+    [[CCDirector sharedDirector] replaceScene:newScene];
+    
+}
+
+-(void) playbg:(NSString *)fileName Loop: (BOOL) isLoop{
+    NSLog(@"enter play sound effect");
+    // access audio object
+    bgMusic = [OALSimpleAudio sharedInstance];
+    // play background sound
+    [bgMusic playBg:fileName volume:1 pan:0 loop:isLoop];
+    NSLog(@"after play music");
+}
 @end

@@ -13,13 +13,15 @@
 #import "Pause.h"
 #import "Grid.h"
 #import "LevelChosen.h"
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
 @implementation GameScene{
     CCLabelTTF *_highestScore;
     CCLabelTTF *_currentScore;
-   
-    NSNumber *level;
+    OALSimpleAudio *bgMusic;
+    int level;
      Grid *_grid;
-}
+  }
 
 
 
@@ -27,9 +29,25 @@
     [super onEnter];
     _currentScore.string = [NSString stringWithFormat:@"%d", _grid.currentScore];
     _highestScore.string = [NSString stringWithFormat:@"%d", _grid.highScore];
-    [self playSoundEffect:@"soundeffect/backgrounMusic.mp3" Loop:YES];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"needTutorial"] == nil){
+        BOOL needTutorial = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:needTutorial forKey:@"needTutorial"];
+    }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"needTutorial"] == YES) {
+        CCNode *tutorial = [CCBReader loadAsScene:@"Tutorial" owner:self];
+        tutorial.opacity = 0.6;
+        [self addChild:tutorial z: 5 name:@"tutorial"];
+    }
+    NSLog(@"level is %d",level);
+   // [self playbg:@"soundeffect/backgrounMusic.mp3" Loop:YES];
     //bg = [[bgSound alloc] init];
     //[bg playSoundwithName:@"soundeffect/backgrounMusic" RunNumberOfLoop:10];
+}
+
+-(void)endTutorialButtonPressed{
+    CCLOG(@"call endTutorialbButtonPressed");
+    [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
+    [self removeChildByName:@"tutorial"];
 }
 
 -(void) pauseButtonPressed
@@ -60,7 +78,11 @@
 }
 
 -(void) musicButtonPressed {
-    
+   
+    [bgMusic stopBg];
+        NSLog(@"music is muted");
+
+    NSLog(@"music button is pressed");
 }
 
 -(void)homeButtonPressed {
@@ -71,19 +93,39 @@
 }
 
 
-
 -(void) playSoundEffect:(NSString *)fileName Loop: (BOOL) isLoop{
     NSLog(@"enter play sound effect");
     // access audio object
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
-    [audio playBg:fileName volume:1 pan:0 loop:isLoop];
+    [audio playEffect:fileName volume:(1) pitch:1 pan:0 loop:isLoop];
     NSLog(@"after play music");
 }
+
 
 -(void)update:(CCTime)delta {
     _currentScore.string = [NSString stringWithFormat:@"%d", _grid.currentScore];
 }
-
+- (void)shareToFacebook {
+    CCLOG(@"Begin to share to Facebook.");
+    //Deliberate no image for now.
+    UIImage *img = [UIImage imageNamed:@"abc"];
+    
+    FBSDKSharePhoto *screen = [[FBSDKSharePhoto alloc] init];
+    screen.image = img;
+    screen.userGenerated = YES;
+    //[screen setImageURL:[NSURL URLWithString:@""]];
+    
+    FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
+    content.photos = @[screen];
+    
+    
+    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+    dialog.fromViewController = [CCDirector sharedDirector];
+    
+    [dialog setShareContent:content];
+    dialog.mode = FBSDKShareDialogModeShareSheet;
+    [dialog show];
+}
 
 @end
