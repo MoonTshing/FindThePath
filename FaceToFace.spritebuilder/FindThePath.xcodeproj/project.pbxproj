@@ -14,6 +14,7 @@
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
 		7343708B1AF486F500361A98 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7343708A1AF486F400361A98 /* FBSDKCoreKit.framework */; };
 		7343708E1AF4870E00361A98 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7343708D1AF4870E00361A98 /* FBSDKShareKit.framework */; };
+		734370921AF4931200361A98 /* DEMazeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 734370911AF4931200361A98 /* DEMazeGenerator.m */; };
 		734811561AEDF6D500D2B234 /* soundeffect in Resources */ = {isa = PBXBuildFile; fileRef = 734811551AEDF6D500D2B234 /* soundeffect */; };
 		7348115C1AEE9E6400D2B234 /* bgSoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7348115B1AEE9E6400D2B234 /* bgSoundEffect.m */; };
 		734A9F2C1AE1788600435452 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = 734A9F2B1AE1788600435452 /* Assets */; };
@@ -29,7 +30,6 @@
 		73CB63521AE1B17B0015E8CA /* badGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CB63511AE1B17B0015E8CA /* badGreen.png */; };
 		73CB63541AE1B6FB0015E8CA /* door.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CB63531AE1B6FB0015E8CA /* door.png */; };
 		73CB63571AE1B7110015E8CA /* door.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CB63561AE1B7110015E8CA /* door.m */; };
-		73CB6F331ADB0EC300F40AC8 /* DEMazeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CB6F321ADB0EC300F40AC8 /* DEMazeGenerator.m */; };
 		73CB6F371ADB13E600F40AC8 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CB6F361ADB13E600F40AC8 /* Block.m */; };
 		73F830E61AC8EA6000273F8F /* LevelChosen.m in Sources */ = {isa = PBXBuildFile; fileRef = 73F830E51AC8EA6000273F8F /* LevelChosen.m */; };
 		7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
@@ -203,6 +203,9 @@
 		5BA4619E1974C88900785744 /* AndroidManifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AndroidManifest.xml; path = Platforms/Android/AndroidManifest.xml; sourceTree = "<group>"; };
 		7343708A1AF486F400361A98 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		7343708D1AF4870E00361A98 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		7343708F1AF492F200361A98 /* DEIntegerPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEIntegerPoint.h; sourceTree = "<group>"; };
+		734370901AF4931200361A98 /* DEMazeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMazeGenerator.h; sourceTree = "<group>"; };
+		734370911AF4931200361A98 /* DEMazeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMazeGenerator.m; sourceTree = "<group>"; };
 		734811551AEDF6D500D2B234 /* soundeffect */ = {isa = PBXFileReference; lastKnownFileType = folder; path = soundeffect; sourceTree = "<group>"; };
 		7348115A1AEE9E6400D2B234 /* bgSoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bgSoundEffect.h; sourceTree = "<group>"; };
 		7348115B1AEE9E6400D2B234 /* bgSoundEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bgSoundEffect.m; sourceTree = "<group>"; };
@@ -229,9 +232,6 @@
 		73CB63531AE1B6FB0015E8CA /* door.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = door.png; path = "../object_emoji-tiles/door.png"; sourceTree = "<group>"; };
 		73CB63551AE1B7110015E8CA /* door.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = door.h; sourceTree = "<group>"; };
 		73CB63561AE1B7110015E8CA /* door.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = door.m; sourceTree = "<group>"; };
-		73CB6F301ADB0EB800F40AC8 /* DEMazeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DEMazeGenerator.h; path = "../../MazeGenerator-tool/MazeGenerator/DEMazeGenerator.h"; sourceTree = "<group>"; };
-		73CB6F321ADB0EC300F40AC8 /* DEMazeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DEMazeGenerator.m; path = "../../MazeGenerator-tool/MazeGenerator/DEMazeGenerator.m"; sourceTree = "<group>"; };
-		73CB6F341ADB0ED100F40AC8 /* DEIntegerPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DEIntegerPoint.h; path = "../../MazeGenerator-tool/MazeGenerator/DEIntegerPoint.h"; sourceTree = "<group>"; };
 		73CB6F351ADB13E600F40AC8 /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
 		73CB6F361ADB13E600F40AC8 /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
 		73F830E41AC8EA5F00273F8F /* LevelChosen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelChosen.h; sourceTree = "<group>"; };
@@ -521,9 +521,9 @@
 				73F830E51AC8EA6000273F8F /* LevelChosen.m */,
 				73697A751ACE16A0006A9D56 /* GameScene.h */,
 				73697A761ACE16A0006A9D56 /* GameScene.m */,
-				73CB6F341ADB0ED100F40AC8 /* DEIntegerPoint.h */,
-				73CB6F321ADB0EC300F40AC8 /* DEMazeGenerator.m */,
-				73CB6F301ADB0EB800F40AC8 /* DEMazeGenerator.h */,
+				7343708F1AF492F200361A98 /* DEIntegerPoint.h */,
+				734370901AF4931200361A98 /* DEMazeGenerator.h */,
+				734370911AF4931200361A98 /* DEMazeGenerator.m */,
 				73697A791AD3589B006A9D56 /* Grid.h */,
 				73697A7A1AD3589B006A9D56 /* Grid.m */,
 				734811551AEDF6D500D2B234 /* soundeffect */,
@@ -961,11 +961,11 @@
 				736C56BE1AD4CB2B002BC576 /* Player.m in Sources */,
 				73CB6F371ADB13E600F40AC8 /* Block.m in Sources */,
 				734A9F311AE196BC00435452 /* destination.m in Sources */,
-				73CB6F331ADB0EC300F40AC8 /* DEMazeGenerator.m in Sources */,
 				737B6A311AF052E400461DA1 /* Lose.m in Sources */,
 				73F830E61AC8EA6000273F8F /* LevelChosen.m in Sources */,
 				73697A7B1AD3589B006A9D56 /* Grid.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				734370921AF4931200361A98 /* DEMazeGenerator.m in Sources */,
 				73CB63501AE1B0240015E8CA /* Monster.m in Sources */,
 				7348115C1AEE9E6400D2B234 /* bgSoundEffect.m in Sources */,
 				737B6A2D1AF0500900461DA1 /* Win.m in Sources */,
