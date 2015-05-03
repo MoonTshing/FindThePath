@@ -1,15 +1,13 @@
 //
 //  Pause.h
-//  FaceToFace
+//  FindThePath
 //
-//  Created by Chanjuan Tshing on 4/7/15.
+//  Created by Kevin Yan on 5/2/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
 #import "CCNode.h"
 
 @interface Pause : CCNode
-
-
-
+-(void) onEnter;
 @end

@@ -21,6 +21,7 @@
     OALSimpleAudio *bgMusic;
     int level;
      Grid *_grid;
+    bool _pauseButtonPressed;
   }
 
 
@@ -29,6 +30,7 @@
     [super onEnter];
     _currentScore.string = [NSString stringWithFormat:@"%d", _grid.currentScore];
     _highestScore.string = [NSString stringWithFormat:@"%d", _grid.highScore];
+    _pauseButtonPressed = NO;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"needTutorial"] == YES) {
         CCNode *tutorial = [CCBReader loadAsScene:@"Tutorial" owner:self];
@@ -46,12 +48,17 @@
     CCLOG(@"call endTutorialbButtonPressed");
     [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
     [self removeChildByName:@"tutorial"];
+    self.userInteractionEnabled = YES;
 }
 
 -(void) pauseButtonPressed
 {
+    if (_pauseButtonPressed)
+        return;
     CCLOG(@"pause button pressed");
     [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
+    _pauseButtonPressed = YES;
+    self.userInteractionEnabled = NO;
     CCNode* scene = [CCBReader loadAsScene:@"Pause" owner:self];
     scene.opacity = 0.6;
     [self addChild:scene z:1 name:@"Pause"];
@@ -61,9 +68,11 @@
 }
 -(void)resumeButtonPressed {
     CCLOG(@"call resumeButtonPressed");
+    self.userInteractionEnabled = YES;
     [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
     [self removeChildByName:@"Pause"];
     [_grid resumeGame];
+    _pauseButtonPressed = NO;
     //TODO: resume pause
 }
 
@@ -73,14 +82,6 @@
     GameScene * newScene = (GameScene *)[CCBReader loadAsScene:@"GameScene"];
     [[CCDirector sharedDirector] replaceScene:newScene];
     
-}
-
--(void) musicButtonPressed {
-   
-    [bgMusic stopBg];
-        NSLog(@"music is muted");
-
-    NSLog(@"music button is pressed");
 }
 
 -(void)homeButtonPressed {
@@ -101,6 +102,7 @@
             [[CCDirector sharedDirector]replaceScene:nextLevel];
         }
     }else{
+        NSLog(@"currentlevel: %ld, highestlevel: %ld", [[NSUserDefaults standardUserDefaults] integerForKey:@"currentLevel"], highestLevel);
         CCLOG(@"no higher level");
     }
 }
@@ -118,6 +120,7 @@
 -(void)update:(CCTime)delta {
     _currentScore.string = [NSString stringWithFormat:@"%d", _grid.currentScore];
 }
+
 - (void)shareToFacebook {
     CCLOG(@"Begin to share to Facebook.");
     //Deliberate no image for now.
