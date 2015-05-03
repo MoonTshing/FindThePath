@@ -98,6 +98,7 @@
         NSInteger tmp =[[NSUserDefaults standardUserDefaults] integerForKey:@"currentLevel"];
         if ( tmp<= highestLevel && tmp < 9) {
             [[NSUserDefaults standardUserDefaults] setInteger:tmp+1 forKey:@"currentLevel"];
+            [[NSUserDefaults standardUserDefaults] setInteger:tmp+1>=highestLevel?tmp+1:highestLevel forKey:@"currentHighestLevel"];
             CCScene *nextLevel = [CCBReader loadAsScene:@"GameScene"];
             [[CCDirector sharedDirector]replaceScene:nextLevel];
         }
