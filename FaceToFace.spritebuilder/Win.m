@@ -10,12 +10,4 @@
 #import "Grid.h"
 @implementation Win
 
--(void) nextLevelButtonPressed{
-    NSInteger tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentLevel"];
-    tmp ++;
-    [[NSUserDefaults standardUserDefaults]setInteger:tmp forKey:@"currentLevel"];
-    CCScene * newScene =[CCBReader loadAsScene:@"GameScene"];
-    [[CCDirector sharedDirector] replaceScene:newScene];
-    
-}
 @end
