@@ -20,17 +20,17 @@
     CCLabelTTF *_currentScore;
     OALSimpleAudio *bgMusic;
     int level;
-    Grid *_grid;
-    Pause *_pause;
-}
+     Grid *_grid;
+    bool _pauseButtonPressed;
+  }
+
+
 
 - (void)onEnter {
     [super onEnter];
-    
     _currentScore.string = [NSString stringWithFormat:@"%d", _grid.currentScore];
     _highestScore.string = [NSString stringWithFormat:@"%d", _grid.highScore];
-    
-    [self hidePause];
+    _pauseButtonPressed = NO;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"needTutorial"] == YES) {
         CCNode *tutorial = [CCBReader loadAsScene:@"Tutorial" owner:self];
@@ -42,27 +42,38 @@
    // [self playbg:@"soundeffect/backgrounMusic.mp3" Loop:YES];
     //bg = [[bgSound alloc] init];
     //[bg playSoundwithName:@"soundeffect/backgrounMusic" RunNumberOfLoop:10];
-    
-    self.userInteractionEnabled = YES;
 }
 
 -(void)endTutorialButtonPressed{
     CCLOG(@"call endTutorialbButtonPressed");
     [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
     [self removeChildByName:@"tutorial"];
+    self.userInteractionEnabled = YES;
 }
 
 -(void) pauseButtonPressed
 {
+    if (_pauseButtonPressed)
+        return;
+    CCLOG(@"pause button pressed");
     [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
+    _pauseButtonPressed = YES;
+    self.userInteractionEnabled = NO;
+    CCNode* scene = [CCBReader loadAsScene:@"Pause" owner:self];
+    scene.opacity = 0.6;
+    [self addChild:scene z:1 name:@"Pause"];
     [_grid pauseGame];
-    [self showPause];
+    //[self pauseButtonPressed];
+    //TODO: game pause
 }
-
 -(void)resumeButtonPressed {
+    CCLOG(@"call resumeButtonPressed");
+    self.userInteractionEnabled = YES;
     [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
-    [self hidePause];
+    [self removeChildByName:@"Pause"];
     [_grid resumeGame];
+    _pauseButtonPressed = NO;
+    //TODO: resume pause
 }
 
 -(void) restartButtonPressed {
@@ -70,6 +81,7 @@
     [self playSoundEffect:@"soundeffect/clickButton.mp3" Loop: NO];
     GameScene * newScene = (GameScene *)[CCBReader loadAsScene:@"GameScene"];
     [[CCDirector sharedDirector] replaceScene:newScene];
+    
 }
 
 -(void)homeButtonPressed {
@@ -129,20 +141,6 @@
     [dialog setShareContent:content];
     dialog.mode = FBSDKShareDialogModeShareSheet;
     [dialog show];
-}
-
-#pragma mark - pausing scene
-
-- (void)hidePause {
-    CCLOG(@"%@", _pause);
-    _pause.zOrder = -100;
-    _pause.visible = NO;
-}
-
-- (void)showPause {
-    CCLOG(@"%@", _pause);
-    _pause.zOrder = 100;
-    _pause.visible = YES;
 }
 
 @end
