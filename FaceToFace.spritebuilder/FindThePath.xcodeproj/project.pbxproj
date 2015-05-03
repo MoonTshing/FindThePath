@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B076C6C1AF599EE00F0F951 /* Pause.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B076C6B1AF599EE00F0F951 /* Pause.m */; };
 		5B12100C19748281004C1E1D /* BridgeKitV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B12100B19748281004C1E1D /* BridgeKitV3.framework */; };
 		5B121029197484DA004C1E1D /* BridgeKitV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B12100B19748281004C1E1D /* BridgeKitV3.framework */; };
 		5B12102A197484DD004C1E1D /* FaceToFaceActivity.java in Sources */ = {isa = PBXBuildFile; fileRef = 5B12101B19748413004C1E1D /* FaceToFaceActivity.java */; };
@@ -189,8 +188,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B076C6A1AF599EE00F0F951 /* Pause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pause.h; sourceTree = "<group>"; };
-		1B076C6B1AF599EE00F0F951 /* Pause.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pause.m; sourceTree = "<group>"; };
 		5B12100919748273004C1E1D /* libEGL.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEGL.so; path = /usr/lib/armv7a/libEGL.so; sourceTree = SDKROOT; };
 		5B12100B19748281004C1E1D /* BridgeKitV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BridgeKitV3.framework; path = System/Library/Frameworks/BridgeKitV3.framework; sourceTree = SDKROOT; };
 		5B12100F197483EE004C1E1D /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
@@ -534,8 +531,6 @@
 				7348115B1AEE9E6400D2B234 /* bgSoundEffect.m */,
 				736C56BC1AD4CB2B002BC576 /* Player.h */,
 				737B6A2B1AF0500900461DA1 /* Win.h */,
-				1B076C6A1AF599EE00F0F951 /* Pause.h */,
-				1B076C6B1AF599EE00F0F951 /* Pause.m */,
 				737B6A2C1AF0500900461DA1 /* Win.m */,
 				736C56BD1AD4CB2B002BC576 /* Player.m */,
 				737B6A2F1AF052E400461DA1 /* Lose.h */,
@@ -963,7 +958,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B076C6C1AF599EE00F0F951 /* Pause.m in Sources */,
 				736C56BE1AD4CB2B002BC576 /* Player.m in Sources */,
 				73CB6F371ADB13E600F40AC8 /* Block.m in Sources */,
 				734A9F311AE196BC00435452 /* destination.m in Sources */,

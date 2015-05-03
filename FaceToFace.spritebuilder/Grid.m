@@ -119,9 +119,7 @@ static const int ONE_MOVE_SCORE = 100;
 
         CCScene *win = [CCBReader loadAsScene:@"Win" owner:self.parent];
         NSInteger highestlvl = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentHighestLevel"];
-        
         [[NSUserDefaults standardUserDefaults] setInteger:highestlvl>_level+1? highestlvl:_level+1 forKey:@"currentHighestLevel"];
-         [[NSUserDefaults standardUserDefaults] setInteger:highestlvl>9? 9:highestlvl forKey:@"currentHighestLevel"];
         [self.parent addChild:win z:1 name:@"win"];
         // play the winner sound (dunno how to make it easy)
     }else{

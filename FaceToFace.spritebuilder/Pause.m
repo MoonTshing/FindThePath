@@ -1,16 +1,13 @@
 //
 //  Pause.m
-//  FindThePath
+//  FaceToFace
 //
-//  Created by Kevin Yan on 5/2/15.
+//  Created by Chanjuan Tshing on 4/7/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
 #import "Pause.h"
 
 @implementation Pause
--(void) onEnter{
-    [super onEnter];
-    self.userInteractionEnabled = YES;
-}
+
 @end
