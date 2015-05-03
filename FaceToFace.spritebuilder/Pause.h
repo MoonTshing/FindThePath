@@ -9,5 +9,5 @@
 #import "CCNode.h"
 
 @interface Pause : CCNode
--(void) onEnter;
+
 @end
